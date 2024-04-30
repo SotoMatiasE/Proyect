@@ -10,15 +10,101 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/common_padding_default"
+        android:paddingHorizontal="@dimen/common_padding_default"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <!--IMAGEVIEW PARA PREVISUALIZAR IMAGENES LOCALE/GALERIA/INTERNET-->
-        <ImageView
-            android:layout_width="@dimen/profile_image_size_large"
-            android:layout_height="@dimen/profile_image_size_large"
-            android:src="@drawable/logo_pw"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_padding_default"
+            app:cardCornerRadius="@dimen/profile_corner_radius_large"
+            app:cardElevation="@dimen/common_padding_min">
+            <!--IMAGEVIEW PARA PREVISUALIZAR IMAGENES LOCALE/GALERIA/INTERNET-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="@dimen/profile_image_size_large"
+                android:layout_height="@dimen/profile_image_size_large"
+                android:src="@drawable/logo_pw"
+                android:scaleType="center"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:text="@string/hint_name"/>
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/profile_text_size_large"
+            android:textColor="@color/black"
+            tools:text="Stock PW"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:text="@string/hint_email"/>
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/profile_text_size_middle"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            tools:text="tarea_quemedio@Macu"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:text="@string/hint_website"/>
+        <TextView
+            android:id="@+id/tvWebsite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            tools:text="www.pwSoft.com"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:text="@string/hint_phone"/>
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/profile_text_size_middle"
+            tools:text="299456789"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:text="@string/hint_location"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/main_show_map"
+            android:textStyle="bold"
+            android:textSize="@dimen/profile_text_size_middle"
+            app:drawableEndCompat="@drawable/ic_map"
+            app:drawableTint="@color/black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_padding_default"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSetting_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/profile_text_size_middle"
+            android:text="@string/hint_setting_location"
+            android:textColor="@color/cardview_shadow_start_color"
+            />
 
     </LinearLayout>
 

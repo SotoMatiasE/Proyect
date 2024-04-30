@@ -93,18 +93,21 @@
             android:textSize="@dimen/profile_text_size_middle"
             app:drawableEndCompat="@drawable/ic_map"
             app:drawableTint="@color/black"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_default"/>
+            android:layout_marginTop="@dimen/common_padding_default" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSetting_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/profile_text_size_middle"
             android:text="@string/hint_setting_location"
             android:textColor="@color/cardview_shadow_start_color"
-            />
+            android:textSize="@dimen/profile_text_size_middle"
+            android:drawableStart="@drawable/ic_settings"
+            android:drawableTint="@color/cardview_shadow_start_color"/>
 
     </LinearLayout>
 

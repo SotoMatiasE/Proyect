@@ -1,5 +1,6 @@
 package com.example.profile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         updateUI()
 
         binding.tvLocation.setOnClickListener {
-            binding.tvLocation.text = "Lat: $lat, Long: $long"
+            //binding.tvLocation.text = "Lat: $lat, Long: $long"
+            startActivity(Intent(this, EditActivity::class.java)) //DE ESTA MANERA LLAMAMOS A EditActivity similar a llamar a otro formulario
         }
     }
 

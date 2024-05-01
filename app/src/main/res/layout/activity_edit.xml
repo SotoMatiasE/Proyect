@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -41,5 +41,114 @@
                 android:background="?selectableItemBackground" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--ESTE ES DEL NOMBRE-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:hint="@string/hint_name">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--ACA TERMINA EL INPUT DEL NOMBRE-->
+
+        <!--EMPIEZA EL INPUT DE EMAIL-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:hint="@string/hint_email">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--TERMINA EL INPUT DE EMAIL-->
+
+        <!--EMPIEZA EL INPUT DEL SITIOWEB-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:hint="@string/hint_website">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etWebSite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textWebEditText"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--TERMINA EL INPUT DEL SITIOWEB-->
+
+        <!--EMPIEZA INPUT DE PHONE-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:hint="@string/hint_phone">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--TERMINA INPUT DEL PHONE-->
+
+        <!--COMIENZA LATITUD Y LONGITUD-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_default">
+            <!--LATITUD-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:layout_marginEnd="@dimen/common_padding_min"
+                android:hint="@string/hint_latitud">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@id/etLong"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <!--TERMINA LATITUD-->
+
+            <!--EMPIEZA LONGITUD-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:layout_marginStart="@dimen/common_padding_min"
+                android:hint="@string/hint_longitud">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal|numberSigned"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <!--TERMINA LONGITUD-->
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

@@ -50,7 +50,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_edit){
-            startActivity(Intent(this, EditActivity::class.java)) //DE ESTA MANERA LLAMAMOS A EditActivity similar a llamar a otro formulario
+            val intent =Intent(this, EditActivity::class.java)
+            //COMO PASAMOS DATOS LA ACTIVITY PRINCIPAL A LA ACTIVITY EDIT
+            intent.putExtra(getString(R.string.key_name), binding.tvName.text)
+            intent.putExtra(getString(R.string.key_email), binding.tvEmail.text)
+            intent.putExtra(getString(R.string.key_website), binding.tvWebsite.text)
+            intent.putExtra(getString(R.string.key_phone), binding.tvPhone.text)
+            intent.putExtra(getString(R.string.key_latitud), lat)
+            intent.putExtra(getString(R.string.key_longitud), long)
+            //TODOS ESTOS DATOS SE ESTAN ENVIANDO A EditActivity
+
+            startActivity(intent) //DE ESTA MANERA LLAMAMOS A EditActivity similar a llamar a otro formulario
         }
         return super.onOptionsItemSelected(item)
     }

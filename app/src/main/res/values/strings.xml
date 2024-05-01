@@ -1,13 +1,27 @@
 <resources>
     <string name="app_name">Profile</string>
+
+    <!--STRINS PARA HINT-->
     <string name="hint_name">Nombre</string>
     <string name="hint_email">Correo electronico</string>
     <string name="hint_website">Sitio web</string>
     <string name="hint_phone">Telefono</string>
     <string name="hint_location">Ubicacion</string>
-    <string name="main_show_map">Ver en el mapa</string>
-    <string name="main_setting_location">Habilitar ubicacion</string>
-    <string name="edit_title">Editar datos de usuario</string>
     <string name="hint_latitud">Latitud</string>
     <string name="hint_longitud">Longitud</string>
+
+    <!--STRINGS PARA MAIN-->
+    <string name="main_show_map">Ver en el mapa</string>
+    <string name="main_setting_location">Habilitar ubicacion</string>
+
+    <!--STRINGS PARA EDIT-->
+    <string name="edit_title">Editar datos de usuario</string>
+
+    <!--STRINGS PARA KEYS-->
+    <string name="key_name">k_name</string>
+    <string name="key_email">k_email</string>
+    <string name="key_website">k_website</string>
+    <string name="key_phone">k_phone</string>
+    <string name="key_latitud">k_lat</string>
+    <string name="key_longitud">k_long</string>
 </resources>

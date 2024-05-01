@@ -1,5 +1,6 @@
 package com.example.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -19,6 +20,8 @@ class EditActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
+        //ESTA OPCION APLICA POR DEFAULT LA FLECHA SUPERIOR PARA VOLVER AL MENU ANTERIOR
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.etName.setText(intent.extras?.getString(getString(R.string.key_name)))
         binding.etEmail.setText(intent.extras?.getString(getString(R.string.key_email)))
@@ -35,9 +38,22 @@ class EditActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_save){
-            finish()
-            return true
+            sendData()
+        }else if (item.itemId == android.R.id.home) { //USANDO android.R ACCEDEMOS A LAS OPCIONES NATIVAS
+            onBackPressedDispatcher.onBackPressed() //vuelvo al menu anterior con opcion nativa de android
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun sendData(){ //ESTA FUNCION ENVIA DATOS A MainActivity
+       val intent = Intent()
+        intent.putExtra(getString(R.string.key_name), binding.etName.text.toString())
+        intent.putExtra(getString(R.string.key_email), binding.etEmail.text.toString())
+        intent.putExtra(getString(R.string.key_website), binding.etWebSite.text.toString())
+        intent.putExtra(getString(R.string.key_phone), binding.etPhone.text.toString())
+        intent.putExtra(getString(R.string.key_latitud), binding.etLat.text.toString().toDouble())
+        intent.putExtra(getString(R.string.key_longitud), binding.etLong.text.toString().toDouble())
+        setResult(RESULT_OK, intent)
+        finish()
     }
 }

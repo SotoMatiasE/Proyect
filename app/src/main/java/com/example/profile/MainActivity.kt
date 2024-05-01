@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -60,8 +62,50 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(getString(R.string.key_longitud), long)
             //TODOS ESTOS DATOS SE ESTAN ENVIANDO A EditActivity
 
-            startActivity(intent) //DE ESTA MANERA LLAMAMOS A EditActivity similar a llamar a otro formulario
+            //startActivity(intent) //DE ESTA MANERA LLAMAMOS A EditActivity similar a llamar a otro formulario
+
+            /*startActivityForResult(intent, RC_EDIT)// LANZAMIENTO Y ESPERA DE LA RESPUESTA*/
+
+            editResult.launch(intent)
         }
         return super.onOptionsItemSelected(item)
     }
+
+
+    private val editResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == RESULT_OK) {
+            val name = it.data?.getStringExtra(getString(R.string.key_name))
+            val email = it.data?.getStringExtra(getString(R.string.key_email))
+            val website = it.data?.getStringExtra(getString(R.string.key_website))
+            val phone = it.data?.getStringExtra(getString(R.string.key_phone))
+            lat = it.data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
+            long = it.data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
+
+            updateUI(name!!, email!!, website!!, phone!!)
+        }
+
+    }
+
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == RC_EDIT) {
+                val name = data?.getStringExtra(getString(R.string.key_name))
+                val email = data?.getStringExtra(getString(R.string.key_email))
+                val website = data?.getStringExtra(getString(R.string.key_website))
+                val phone = data?.getStringExtra(getString(R.string.key_phone))
+                lat = data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
+                long = data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
+
+                updateUI(name!!, email!!, website!!, phone!!)
+            }
+        }
+    }*/
+
+    companion object { //CONSTANTE CREADA
+        private const val RC_EDIT = 21
+    }
+
+
 }

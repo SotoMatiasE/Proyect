@@ -23,20 +23,44 @@ class EditActivity : AppCompatActivity() {
         //ESTA OPCION APLICA POR DEFAULT LA FLECHA SUPERIOR PARA VOLVER AL MENU ANTERIOR
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //VALIDACION DE CAMPOS NULOS
-        intent.extras?.let { //SI ESTRAS LLEGA A SER NULL JAMAS SE EJECUTA OEL CODIGO Y VERIFICA UNA SOLA VEZ
-            binding.etName.setText(it.getString(getString(R.string.key_name)))
-            binding.etEmail.setText(it.getString(getString(R.string.key_email)))
-            binding.etWebSite.setText(it?.getString(getString(R.string.key_website)))
-            binding.etPhone.setText(it.getString(getString(R.string.key_phone)))
-            binding.etLat.setText(it.getDouble(getString(R.string.key_latitud)).toString())
-            binding.etLong.setText(it.getDouble(getString(R.string.key_longitud)).toString())
-        }
-
-        binding.etWebSite.setOnFocusChangeListener { v, isFocus ->
-            if (isFocus) {
-                binding.etWebSite.text?.let{ //CON it QUE ES EL EDITABLE DE text QUE MUESTRE EL CURSOR DEPENDIENDO LA LONGITUD DEL TEXT
-                    binding.etWebSite.setSelection(it.length)
+        with(binding) {
+            //VALIDACION DE CAMPOS NULOS
+            intent.extras?.let { //SI ESTRAS LLEGA A SER NULL JAMAS SE EJECUTA OEL CODIGO Y VERIFICA UNA SOLA VEZ
+                etName.setText(it.getString(getString(R.string.key_name)))
+                etEmail.setText(it.getString(getString(R.string.key_email)))
+                etWebSite.setText(it.getString(getString(R.string.key_website)))
+                etPhone.setText(it.getString(getString(R.string.key_phone)))
+                etLat.setText(it.getDouble(getString(R.string.key_latitud)).toString())
+                etLong.setText(it.getDouble(getString(R.string.key_longitud)).toString())
+            }
+            //CON it QUE ES EL EDITABLE DE text QUE MUESTRE EL CURSOR DEPENDIENDO LA LONGITUD DEL TEXT
+            etEmail.setOnFocusChangeListener { v, isFocused ->
+                if (isFocused) {
+                    etEmail.text?.let { etEmail.setSelection(it.length) }
+                }
+                etWebSite.setOnFocusChangeListener { v, isFocused ->
+                    if (isFocused) {
+                        etWebSite.text?.let {etWebSite.setSelection(it.length)
+                        }
+                    }
+                }
+                etPhone.setOnFocusChangeListener { v, isFocused ->
+                    if (isFocused) {
+                        etPhone.text?.let {etPhone.setSelection(it.length)
+                        }
+                    }
+                }
+                etLat.setOnFocusChangeListener { v, isFocused ->
+                    if (isFocused) {
+                        etLat.text?.let {etLat.setSelection(it.length)
+                        }
+                    }
+                }
+                etLong.setOnFocusChangeListener { v, isFocused ->
+                    if (isFocused) {
+                        etLong.text?.let {etLong.setSelection(it.length)
+                        }
+                    }
                 }
             }
         }

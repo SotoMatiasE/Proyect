@@ -55,6 +55,8 @@
             android:textSize="@dimen/profile_text_size_middle"
             android:textColor="@color/black"
             android:textStyle="italic"
+            android:autoLink="email"
+            android:textColorLink="@color/black"
             tools:text="tarea_quemedio@Macu"/>
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +68,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            tools:text="www.pwSoft.com"/>
+            android:autoLink="web"
+            android:textColorLink="@color/blue_700"
+            tools:text="https://puenteweb.com/pw/"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

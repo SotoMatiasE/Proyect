@@ -98,7 +98,9 @@
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"/>
+                android:inputType="phone"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@id/etLat"/>
         </com.google.android.material.textfield.TextInputLayout>
         <!--TERMINA INPUT DEL PHONE-->
 

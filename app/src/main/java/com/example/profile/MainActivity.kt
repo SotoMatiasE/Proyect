@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI(name: String = "Proyecto Kotlin PW", email: String = "pwkotlinsoft@gmail.com",
-                         website: String = "pwsoft.com", phone: String = "+54 231321321") {
+                         website: String = "https://puenteweb.com/pw/", phone: String = "+54 231321321") {
         binding.tvName.text = name
         binding.tvEmail.text = email
         binding.tvWebsite.text = website
@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
             val intent =Intent(this, EditActivity::class.java)
             //COMO PASAMOS DATOS LA ACTIVITY PRINCIPAL A LA ACTIVITY EDIT
             intent.putExtra(getString(R.string.key_name), binding.tvName.text)
-            intent.putExtra(getString(R.string.key_email), binding.tvEmail.text)
-            intent.putExtra(getString(R.string.key_website), binding.tvWebsite.text)
+            intent.putExtra(getString(R.string.key_email), binding.tvEmail.text.toString())
+            intent.putExtra(getString(R.string.key_website), binding.tvWebsite.text.toString())
             intent.putExtra(getString(R.string.key_phone), binding.tvPhone.text)
             intent.putExtra(getString(R.string.key_latitud), lat)
             intent.putExtra(getString(R.string.key_longitud), long)

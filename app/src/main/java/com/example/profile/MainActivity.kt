@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
@@ -78,7 +79,12 @@ class MainActivity : AppCompatActivity() {
 
     //DE ESTA FORMA SI CAMBIA ALGO DE LA AP 30 EN ADELANTE ES MAS FACIL CAMBIARLO
     private fun launchIntent(intent: Intent){
-        startActivity(intent)
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, getString(R.string.profile_erro_no_resolve), Toast.LENGTH_SHORT).show()
+        }
+        //ESTO PREGUNTA SI HAY COMPATIBILIDAD CON API SUPERIOR DEL ANDROID 11
     }
 
 

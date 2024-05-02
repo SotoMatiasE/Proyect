@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.tvLocation.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("geo:0,0?q=$lat, $long(App test kotlin)")
+                data = Uri.parse("geo:0,0?q=$lat, $long(Puente Web)")
                 `package` = "com.google.android.apps.maps"
             }
             launchIntent(intent)
@@ -97,8 +97,8 @@ class MainActivity : AppCompatActivity() {
         binding.tvEmail.text = email
         binding.tvWebsite.text = website
         binding.tvPhone.text = phone
-        lat = -38.940576
-        long = -68.068939
+        //lat = -38.940576
+        //long = -68.068939
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

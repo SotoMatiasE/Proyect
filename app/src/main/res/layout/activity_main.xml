@@ -57,6 +57,7 @@
             android:textStyle="italic"
             android:autoLink="email"
             android:textColorLink="@color/black"
+            android:linksClickable="false"
             tools:text="tarea_quemedio@Macu"/>
         <TextView
             android:layout_width="wrap_content"
@@ -70,6 +71,7 @@
             android:textColor="@color/black"
             android:autoLink="web"
             android:textColorLink="@color/blue_700"
+            android:linksClickable="false"
             tools:text="https://puenteweb.com/pw/"/>
         <TextView
             android:layout_width="wrap_content"

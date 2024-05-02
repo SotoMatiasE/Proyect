@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
         binding.tvLocation.setOnClickListener {
             binding.tvLocation.text = "Lat: $lat, Long: $long"
         }
-
-
     }
 
     private fun updateUI(name: String = "Proyecto Kotlin PW", email: String = "pwkotlinsoft@gmail.com",
@@ -70,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
+    //VALIDACION DE CAMPOS NULOS
     private val editResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if (it.resultCode == RESULT_OK) {
             val name = it.data?.getStringExtra(getString(R.string.key_name))

@@ -23,6 +23,7 @@ class EditActivity : AppCompatActivity() {
         //ESTA OPCION APLICA POR DEFAULT LA FLECHA SUPERIOR PARA VOLVER AL MENU ANTERIOR
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        //VALIDACION DE CAMPOS NULOS
         intent.extras?.let { //SI ESTRAS LLEGA A SER NULL JAMAS SE EJECUTA OEL CODIGO Y VERIFICA UNA SOLA VEZ
             binding.etName.setText(it.getString(getString(R.string.key_name)))
             binding.etEmail.setText(it.getString(getString(R.string.key_email)))
@@ -30,6 +31,14 @@ class EditActivity : AppCompatActivity() {
             binding.etPhone.setText(it.getString(getString(R.string.key_phone)))
             binding.etLat.setText(it.getDouble(getString(R.string.key_latitud)).toString())
             binding.etLong.setText(it.getDouble(getString(R.string.key_longitud)).toString())
+        }
+
+        binding.etWebSite.setOnFocusChangeListener { v, isFocus ->
+            if (isFocus) {
+                binding.etWebSite.text?.let{ //CON it QUE ES EL EDITABLE DE text QUE MUESTRE EL CURSOR DEPENDIENDO LA LONGITUD DEL TEXT
+                    binding.etWebSite.setSelection(it.length)
+                }
+            }
         }
     }
 
@@ -56,6 +65,7 @@ class EditActivity : AppCompatActivity() {
     fun sendData(){ //ESTA FUNCION ENVIA DATOS A MainActivity
        val intent = Intent()
 
+        //VALIDACION DE CAMPOS
         with(binding){
             intent.apply {
                 putExtra(getString(R.string.key_name), etName.text.toString())

@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUI(name: String = "Proyecto Kotlin PW", email: String = "pwkotlinsoft@gmail.com",
                          website: String = "pwsoft.com", phone: String = "+54 231321321") {
-
         binding.tvName.text = name
         binding.tvEmail.text = email
         binding.tvWebsite.text = website
@@ -104,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     }*/
 
     companion object { //CONSTANTE CREADA
-        private const val RC_EDIT = 21
+        private const val RC_EDIT = 21 //ACTUALMENTE NO ESTA SIENDO USADA
     }
 
 

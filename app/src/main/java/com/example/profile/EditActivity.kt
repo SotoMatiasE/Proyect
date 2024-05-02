@@ -23,12 +23,14 @@ class EditActivity : AppCompatActivity() {
         //ESTA OPCION APLICA POR DEFAULT LA FLECHA SUPERIOR PARA VOLVER AL MENU ANTERIOR
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.etName.setText(intent.extras?.getString(getString(R.string.key_name)))
-        binding.etEmail.setText(intent.extras?.getString(getString(R.string.key_email)))
-        binding.etWebSite.setText(intent.extras?.getString(getString(R.string.key_website)))
-        binding.etPhone.setText(intent.extras?.getString(getString(R.string.key_phone)))
-        binding.etLat.setText(intent.extras?.getDouble(getString(R.string.key_latitud)).toString())
-        binding.etLong.setText(intent.extras?.getDouble(getString(R.string.key_longitud)).toString())
+        intent.extras?.let { //SI ESTRAS LLEGA A SER NULL JAMAS SE EJECUTA OEL CODIGO Y VERIFICA UNA SOLA VEZ
+            binding.etName.setText(it.getString(getString(R.string.key_name)))
+            binding.etEmail.setText(it.getString(getString(R.string.key_email)))
+            binding.etWebSite.setText(it?.getString(getString(R.string.key_website)))
+            binding.etPhone.setText(it.getString(getString(R.string.key_phone)))
+            binding.etLat.setText(it.getDouble(getString(R.string.key_latitud)).toString())
+            binding.etLong.setText(it.getDouble(getString(R.string.key_longitud)).toString())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -37,22 +39,41 @@ class EditActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_save){
+        when(item.itemId) {
+            android.R.id.home -> onBackPressedDispatcher.onBackPressed()
+            R.id.action_save -> sendData()
+            //HACER ESTO ES LO MISMO Y MEJOR QUE EL if QUE ESTA ABAJO
+        }
+
+        /*if (item.itemId == R.id.action_save){
             sendData()
         }else if (item.itemId == android.R.id.home) { //USANDO android.R ACCEDEMOS A LAS OPCIONES NATIVAS
-            onBackPressedDispatcher.onBackPressed() //vuelvo al menu anterior con opcion nativa de android
-        }
+            onBackPressedDispatcher.onBackPressed() //vuelvo al menu anterior con fleacha opcion nativa de android
+        }*/
         return super.onOptionsItemSelected(item)
     }
 
     fun sendData(){ //ESTA FUNCION ENVIA DATOS A MainActivity
        val intent = Intent()
-        intent.putExtra(getString(R.string.key_name), binding.etName.text.toString())
+
+        with(binding){
+            intent.apply {
+                putExtra(getString(R.string.key_name), etName.text.toString())
+                putExtra(getString(R.string.key_email), etEmail.text.toString())
+                putExtra(getString(R.string.key_website), etWebSite.text.toString())
+                putExtra(getString(R.string.key_phone), etPhone.text.toString())
+                putExtra(getString(R.string.key_latitud), etLat.text.toString().toDouble())
+                putExtra(getString(R.string.key_longitud), etLong.text.toString().toDouble())
+                //DE ESTA MANERA AHORRAMOS REPETIR INTENTS Y BINDINGS ESTO ES MAS LIMPIO
+            }
+        }
+
+        /*intent.putExtra(getString(R.string.key_name), binding.etName.text.toString())
         intent.putExtra(getString(R.string.key_email), binding.etEmail.text.toString())
         intent.putExtra(getString(R.string.key_website), binding.etWebSite.text.toString())
         intent.putExtra(getString(R.string.key_phone), binding.etPhone.text.toString())
         intent.putExtra(getString(R.string.key_latitud), binding.etLat.text.toString().toDouble())
-        intent.putExtra(getString(R.string.key_longitud), binding.etLong.text.toString().toDouble())
+        intent.putExtra(getString(R.string.key_longitud), binding.etLong.text.toString().toDouble())*/
         setResult(RESULT_OK, intent)
         finish()
     }

@@ -10,16 +10,14 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.profile.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var imageUri: Uri? = null
     private var lat: Double = 0.0
     private var long: Double = 0.0
 
@@ -106,6 +104,7 @@ class MainActivity : AppCompatActivity() {
         binding.tvPhone.text = phone
         //lat = -38.940576
         //long = -68.068939
+        binding.imgProfile.setImageURI(imageUri)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -145,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             val phone = it.data?.getStringExtra(getString(R.string.key_phone))
             lat = it.data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
             long = it.data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
-
+            imageUri = Uri.parse(it.data?.getStringExtra(getString(R.string.key_img)))
             updateUI(name!!, email!!, website!!, phone!!)
         }
 

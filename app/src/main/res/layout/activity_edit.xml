@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@mipmap/ic_launcher"
-                    android:scaleType="center"/>
+                    android:scaleType="centerCrop"/>
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatImageButton

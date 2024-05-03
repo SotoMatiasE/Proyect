@@ -1,19 +1,20 @@
 package com.example.profile
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.profile.databinding.ActivityEditBinding
-import com.example.profile.databinding.ActivityMainBinding
 
 class EditActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditBinding
+
+    private var imageUri: Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditBinding.inflate(layoutInflater)
@@ -63,6 +64,14 @@ class EditActivity : AppCompatActivity() {
                     }
                 }
             }
+            //ENTRA A LA GALERIA PARA ABRIR UN DOC
+            btnSelectPhoto.setOnClickListener {
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "image/jpeg"
+                }
+                startActivityForResult(intent, RC_GALERY)
+            }
         }
     }
 
@@ -86,12 +95,25 @@ class EditActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == RC_GALERY){
+                imageUri = data?.data
+
+                binding.imgProfile.setImageURI(imageUri)
+            }
+        }
+    }
+
     fun sendData(){ //ESTA FUNCION ENVIA DATOS A MainActivity
        val intent = Intent()
 
         //VALIDACION DE CAMPOS
         with(binding){
             intent.apply {
+                putExtra(getString(R.string.key_img), imageUri.toString())
                 putExtra(getString(R.string.key_name), etName.text.toString())
                 putExtra(getString(R.string.key_email), etEmail.text.toString())
                 putExtra(getString(R.string.key_website), etWebSite.text.toString())
@@ -101,14 +123,11 @@ class EditActivity : AppCompatActivity() {
                 //DE ESTA MANERA AHORRAMOS REPETIR INTENTS Y BINDINGS ESTO ES MAS LIMPIO
             }
         }
-
-        /*intent.putExtra(getString(R.string.key_name), binding.etName.text.toString())
-        intent.putExtra(getString(R.string.key_email), binding.etEmail.text.toString())
-        intent.putExtra(getString(R.string.key_website), binding.etWebSite.text.toString())
-        intent.putExtra(getString(R.string.key_phone), binding.etPhone.text.toString())
-        intent.putExtra(getString(R.string.key_latitud), binding.etLat.text.toString().toDouble())
-        intent.putExtra(getString(R.string.key_longitud), binding.etLong.text.toString().toDouble())*/
         setResult(RESULT_OK, intent)
         finish()
+    }
+
+    companion object{ //CONSTANTES
+        private const val RC_GALERY = 22
     }
 }

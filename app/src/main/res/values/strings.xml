@@ -25,4 +25,5 @@
     <string name="key_latitud">k_lat</string>
     <string name="key_longitud">k_long</string>
     <string name="profile_erro_no_resolve">No se encontro un app compatible</string>
+    <string name="key_img">k_img</string>
 </resources>

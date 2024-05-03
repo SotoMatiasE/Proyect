@@ -33,6 +33,8 @@ class EditActivity : AppCompatActivity() {
                 etPhone.setText(it.getString(getString(R.string.key_phone)))
                 etLat.setText(it.getDouble(getString(R.string.key_latitud)).toString())
                 etLong.setText(it.getDouble(getString(R.string.key_longitud)).toString())
+                imageUri = Uri.parse(it.getString(getString(R.string.key_img)))
+                updateImg()
             }
             //CON it QUE ES EL EDITABLE DE text QUE MUESTRE EL CURSOR DEPENDIENDO LA LONGITUD DEL TEXT
             etEmail.setOnFocusChangeListener { v, isFocused ->
@@ -102,12 +104,23 @@ class EditActivity : AppCompatActivity() {
             if (requestCode == RC_GALERY){
                 imageUri = data?.data
 
-                binding.imgProfile.setImageURI(imageUri)
+                //validacion y otorgamiento de permisos para uri y persista la img de la galeria
+                imageUri?.let {
+                    val contentResolver = applicationContext.contentResolver
+                    val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+
+                    contentResolver.takePersistableUriPermission(it, takeFlags)
+                    updateImg()
+                }
             }
         }
     }
 
-    fun sendData(){ //ESTA FUNCION ENVIA DATOS A MainActivity
+    private fun updateImg(){
+        binding.imgProfile.setImageURI(imageUri)
+    }
+
+    private fun sendData(){ //ESTA FUNCION ENVIA DATOS A MainActivity
        val intent = Intent()
 
         //VALIDACION DE CAMPOS

@@ -122,6 +122,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(getString(R.string.key_phone), binding.tvPhone.text)
             intent.putExtra(getString(R.string.key_latitud), lat)
             intent.putExtra(getString(R.string.key_longitud), long)
+            intent.putExtra(getString(R.string.key_img), imageUri.toString())
             //TODOS ESTOS DATOS SE ESTAN ENVIANDO A EditActivity
 
             //startActivity(intent) //DE ESTA MANERA LLAMAMOS A EditActivity similar a llamar a otro formulario
@@ -167,9 +168,9 @@ class MainActivity : AppCompatActivity() {
         }
     }*/
 
-    companion object { //CONSTANTE CREADA
+    /*companion object { //CONSTANTE CREADA
         private const val RC_EDIT = 21 //ACTUALMENTE NO ESTA SIENDO USADA
-    }
+    }*/
 
 
 }

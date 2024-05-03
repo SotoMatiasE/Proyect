@@ -2,6 +2,7 @@ package com.example.profile
 
 import android.app.SearchManager
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -12,14 +13,35 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import com.example.profile.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var imageUri: Uri? = null
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var imageUri: Uri
+
     private var lat: Double = 0.0
     private var long: Double = 0.0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
+        setContentView(binding.root)
+
+        //ESTA PROPIEDAD PERMITE GUARDAR DATOS
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+        //updateUI()
+        getUserData()
+
+        setUpIntents()
+    }
+
+
 
     //VALIDACION DE CAMPOS NULOS
     /*StartActivityForResul ESTA PROPERTY DA UN CODIGO(KEY)CON EL CUAL MAS ADELANTE PODRA FILTRAR LA
@@ -33,20 +55,9 @@ class MainActivity : AppCompatActivity() {
             lat = it.data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
             long = it.data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
             imageUri = Uri.parse(it.data?.getStringExtra(getString(R.string.key_img)))
-            updateUI(name!!, email!!, website!!, phone!!)
+            updateUI(name, email, website, phone)
         }
 
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
-        setContentView(binding.root)
-
-        updateUI()
-
-        setUpIntents()
     }
 
 
@@ -112,16 +123,28 @@ class MainActivity : AppCompatActivity() {
         //ESTO PREGUNTA SI HAY COMPATIBILIDAD CON API SUPERIOR DEL ANDROID 11
     }
 
+    private fun getUserData() {
+        imageUri = Uri.parse(sharedPreferences.getString(getString(R.string.key_img), ""))
+        val name = sharedPreferences.getString(getString(R.string.key_name),null)
+        val email = sharedPreferences.getString(getString(R.string.key_email), null)
+        val website = sharedPreferences.getString(getString(R.string.key_website), null)
+        val phone = sharedPreferences.getString(getString(R.string.key_phone), null)
+        lat = sharedPreferences.getString(getString(R.string.key_latitud), "0.0")!!.toDouble()
+        long = sharedPreferences.getString(getString(R.string.key_longitud), "0.0")!!.toDouble()
 
-    private fun updateUI(name: String = "Proyecto Kotlin PW", email: String = "pwkotlinsoft@gmail.com",
-                         website: String = "https://puenteweb.com/pw/", phone: String = "+54 231321321") {
-        binding.tvName.text = name
-        binding.tvEmail.text = email
-        binding.tvWebsite.text = website
-        binding.tvPhone.text = phone
+        updateUI(name, email, website, phone)
+    }
+
+    private fun updateUI(name: String?, email: String?, website: String? , phone: String?) {
+        with (binding) {
+            imgProfile.setImageURI(imageUri)
+            tvName.text = name ?: "Proyecto Kotlin PW"
+            tvEmail.text = email ?: "pwkotlinsoft@gmail.com"
+            tvWebsite.text = website ?: "https://puenteweb.com/pw/"
+            tvPhone.text = phone ?: "+54 231321321"
+        }
         //lat = -38.940576
         //long = -68.068939
-        binding.imgProfile.setImageURI(imageUri)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -144,17 +167,16 @@ class MainActivity : AppCompatActivity() {
 
             //startActivity(intent) //DE ESTA MANERA LLAMAMOS A EditActivity similar a llamar a otro formulario
 
-            /*startActivityForResult(intent, RC_EDIT)// LANZAMIENTO Y ESPERA DE LA RESPUESTA*/
+            editResult.launch(intent)// LANZAMIENTO Y ESPERA DE LA RESPUESTA
 
-            editResult.launch(intent)
+            //editResult.launch(intent)
         }
         return super.onOptionsItemSelected(item)
     }
 
 
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == RESULT_OK) {
             if (requestCode == RC_EDIT) {
                 val name = data?.getStringExtra(getString(R.string.key_name))
@@ -163,15 +185,34 @@ class MainActivity : AppCompatActivity() {
                 val phone = data?.getStringExtra(getString(R.string.key_phone))
                 lat = data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
                 long = data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
+                imageUri = Uri.parse(data?.getStringExtra("key_image"))
+                //updateUI(name!!, email!!, website!!, phone!!)
 
-                updateUI(name!!, email!!, website!!, phone!!)
+                saveUserData(name, email, website, phone)
             }
         }
-    }*/
+    }
 
-    /*companion object { //CONSTANTE CREADA
+    //ASI PODEMOS ALMACENAR DATOS DE MANERA PERMANENTE
+    //AHORA sharedPreferences CONTIENE LOS DATOS ALMACENADOS
+    private fun saveUserData(name: String?, email: String?, website: String?, phone: String?) {
+        sharedPreferences.edit {
+            putString(getString(R.string.key_name), name)
+            putString(getString(R.string.key_email), email)
+            putString(getString(R.string.key_website), website)
+            putString(getString(R.string.key_phone), phone)
+            putString(getString(R.string.key_img), imageUri.toString())
+            putString(getString(R.string.key_latitud), lat.toString())
+            putString(getString(R.string.key_longitud), long.toString())
+            //USANDO apply PASAMOS A ALMACENAR DATOS DE MANERA PERMANENTE
+            apply()
+        }
+        updateUI(name, email, website, phone)
+    }
+
+    companion object { //CONSTANTE CREADA
         private const val RC_EDIT = 21 //ACTUALMENTE NO ESTA SIENDO USADA
-    }*/
+    }
 
 
 }

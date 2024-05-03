@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -76,6 +77,12 @@ class MainActivity : AppCompatActivity() {
                 data = Uri.parse("geo:0,0?q=$lat, $long(Puente Web)")
                 `package` = "com.google.android.apps.maps"
             }
+            launchIntent(intent)
+        }
+
+        //CON ESTA INTENCION PODEMOS ACCEDER A LAS CONFIGURACIONES DEL MAP
+        binding.tvSetting.setOnClickListener {
+            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
             launchIntent(intent)
         }
     }

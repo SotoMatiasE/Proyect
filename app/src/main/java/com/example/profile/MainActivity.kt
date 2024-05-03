@@ -21,6 +21,23 @@ class MainActivity : AppCompatActivity() {
     private var lat: Double = 0.0
     private var long: Double = 0.0
 
+    //VALIDACION DE CAMPOS NULOS
+    /*StartActivityForResul ESTA PROPERTY DA UN CODIGO(KEY)CON EL CUAL MAS ADELANTE PODRA FILTRAR LA
+    RESPUESTA Y ASI SABER QUE SE TRATA DE LA MISMA ACTIVITY QUE LO LANZO*/
+    private val editResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == RESULT_OK) {
+            val name = it.data?.getStringExtra(getString(R.string.key_name))
+            val email = it.data?.getStringExtra(getString(R.string.key_email))
+            val website = it.data?.getStringExtra(getString(R.string.key_website))
+            val phone = it.data?.getStringExtra(getString(R.string.key_phone))
+            lat = it.data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
+            long = it.data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
+            imageUri = Uri.parse(it.data?.getStringExtra(getString(R.string.key_img)))
+            updateUI(name!!, email!!, website!!, phone!!)
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -134,22 +151,6 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    //VALIDACION DE CAMPOS NULOS
-    /*StartActivityForResul ESTA PROPERTY DA UN CODIGO(KEY)CON EL CUAL MAS ADELANTE PODRA FILTRAR LA
-    RESPUESTA Y ASI SABER QUE SE TRATA DE LA MISMA ACTIVITY QUE LO LANZO*/
-    private val editResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if (it.resultCode == RESULT_OK) {
-            val name = it.data?.getStringExtra(getString(R.string.key_name))
-            val email = it.data?.getStringExtra(getString(R.string.key_email))
-            val website = it.data?.getStringExtra(getString(R.string.key_website))
-            val phone = it.data?.getStringExtra(getString(R.string.key_phone))
-            lat = it.data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
-            long = it.data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
-            imageUri = Uri.parse(it.data?.getStringExtra(getString(R.string.key_img)))
-            updateUI(name!!, email!!, website!!, phone!!)
-        }
-
-    }
 
     /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

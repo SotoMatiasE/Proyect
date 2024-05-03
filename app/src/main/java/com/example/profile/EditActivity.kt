@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.profile.databinding.ActivityEditBinding
 
@@ -14,6 +15,23 @@ class EditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditBinding
 
     private var imageUri: Uri? = null
+
+
+    private val galleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == RESULT_OK) {
+            imageUri = it.data?.data
+
+            //validacion y otorgamiento de permisos para uri y persista la img de la galeria
+            imageUri?.let {
+                val contentResolver = applicationContext.contentResolver
+                val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+
+                contentResolver.takePersistableUriPermission(it, takeFlags)
+                updateImg()
+            }
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +90,8 @@ class EditActivity : AppCompatActivity() {
                     addCategory(Intent.CATEGORY_OPENABLE)
                     type = "image/jpeg"
                 }
-                startActivityForResult(intent, RC_GALERY)
+               /* startActivityForResult(intent, RC_GALERY)*/
+                galleryResult.launch(intent)
             }
         }
     }
@@ -95,25 +114,6 @@ class EditActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed() //vuelvo al menu anterior con fleacha opcion nativa de android
         }*/
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == RC_GALERY){
-                imageUri = data?.data
-
-                //validacion y otorgamiento de permisos para uri y persista la img de la galeria
-                imageUri?.let {
-                    val contentResolver = applicationContext.contentResolver
-                    val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-
-                    contentResolver.takePersistableUriPermission(it, takeFlags)
-                    updateImg()
-                }
-            }
-        }
     }
 
     private fun updateImg(){
@@ -140,7 +140,7 @@ class EditActivity : AppCompatActivity() {
         finish()
     }
 
-    companion object{ //CONSTANTES
+    /*companion object{ //CONSTANTES
         private const val RC_GALERY = 22
-    }
+    }*/
 }

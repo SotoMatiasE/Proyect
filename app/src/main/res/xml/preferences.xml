@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:title="@string/preference_touch_title">
+        <SwitchPreferenceCompat
+            app:title="@string/preference_enable_clicks"
+            app:key="@string/preference_key_enable_clicks"
+            app:defaultValue="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/preference_ui_title">
+        <ListPreference
+            app:title="@string/preference_ui_img_size"
+            app:key="@string/preference_key_ui_img_size"
+            app:entries="@array/size"
+            app:entryValues="@array/size_values"
+            app:defaultValue="@string/preference_key_img_large"/>
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        app:title="@string/preference_data_title">
+        <Preference
+            app:title="@string/preference_delete_data"
+            app:key="@string/preference_key_delete_data"/>
+        <Preference
+            app:title="@string/preference_restore_data"
+            app:key="@string/preference_key_restore_data"/>
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

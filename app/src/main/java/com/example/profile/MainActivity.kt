@@ -59,6 +59,20 @@ class MainActivity : AppCompatActivity() {
         setUpIntents()
     }
 
+    //onResume NOS SIRVE AHORA PARA PODER GENERAR CAMBIOS EN TIEMPO REAL EN ESTA CASO DESHABILITA O HABILITA CLCKS
+    override fun onResume() {
+        super.onResume()
+        val isEnable = sharedPreferences.getBoolean(getString(R.string.preference_key_enable_clicks),true)
+        with(binding){
+        tvName.isEnabled = isEnable
+        tvEmail.isEnabled = isEnable
+        tvWebsite.isEnabled = isEnable
+        tvPhone.isEnabled = isEnable
+        tvLocation.isEnabled = isEnable
+        tvSetting.isEnabled = isEnable
+        }
+    }
+
 
     //CON ESTA FUNCION LE DAMOS LA PROPIEDAD DE BUSQUEDA AL TEXTVIEW
     //ES DECIR HAGO CLICK EN EL NOMBRE Y AUTOMATICAMENTE BUSCAR ESO ESCRITO EN GOOGLE
@@ -163,6 +177,8 @@ class MainActivity : AppCompatActivity() {
                 //startActivityForResult(intent, RC_EDIT) // <- lanzamiento y espera de respuesta
                 editResult.launch(intent)
             }
+            //LANZAMOS LA NUEVA ACTIVIDAD "action_settings"
+            R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

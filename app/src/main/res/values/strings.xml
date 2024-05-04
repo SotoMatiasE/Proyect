@@ -24,6 +24,31 @@
     <string name="key_phone">k_phone</string>
     <string name="key_latitud">k_lat</string>
     <string name="key_longitud">k_long</string>
-    <string name="profile_erro_no_resolve">No se encontro un app compatible</string>
     <string name="key_img">k_img</string>
+
+
+    <string name="settings_title">Configuracion</string>
+
+
+    <string name="profile_erro_no_resolve">No se encontro un app compatible</string>
+
+
+    <string name="preference_touch_title">Touch</string>
+    <string name="preference_enable_clicks">Habilitar clicks</string>
+    <string name="preference_key_enable_clicks">pref_enables_clicks</string>
+    <string name="preference_data_title">Datos</string>
+    <string name="preference_delete_data">Eliminar datos del usuario</string>
+    <string name="preference_key_delete_data">pref_delete_data</string>
+    <string name="preference_restore_data">Restaurar datos y configuraciones</string>
+    <string name="preference_key_restore_data">pref_restore_data</string>
+
+    <string name="preference_img_small">Chica</string>
+    <string name="preference_img_medium">Mediano</string>
+    <string name="preference_img_large">Grande</string>
+    <string name="preference_key_img_small">pref_small</string>
+    <string name="preference_key_img_medium">pref_meduim</string>
+    <string name="preference_key_img_large">pref_large</string>
+    <string name="preference_ui_title">Intefaz</string>
+    <string name="preference_ui_img_size">Tamaño de la imagen</string>
+    <string name="preference_key_ui_img_size">pref_ui_img_size</string>
 </resources>

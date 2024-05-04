@@ -26,6 +26,24 @@ class MainActivity : AppCompatActivity() {
     private var lat: Double = 0.0
     private var long: Double = 0.0
 
+    //VALIDACION DE CAMPOS NULOS
+    /*StartActivityForResul ESTA PROPERTY DA UN CODIGO(KEY)CON EL CUAL MAS ADELANTE PODRA FILTRAR LA
+    RESPUESTA Y ASI SABER QUE SE TRATA DE LA MISMA ACTIVITY QUE LO LANZO*/
+    private val editResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == RESULT_OK){
+            imageUri = Uri.parse(it.data?.getStringExtra(getString(R.string.key_img)))
+            val name = it.data?.getStringExtra(getString(R.string.key_name))
+            val email = it.data?.getStringExtra(getString(R.string.key_email))
+            val website = it.data?.getStringExtra(getString(R.string.key_website))
+            val phone = it.data?.getStringExtra(getString(R.string.key_phone))
+            lat = it.data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
+            long = it.data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
+
+            //updateUI(name!!, email!!, website!!, phone!!)
+            saveUserData(name, email, website, phone)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -42,25 +60,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    //VALIDACION DE CAMPOS NULOS
-    /*StartActivityForResul ESTA PROPERTY DA UN CODIGO(KEY)CON EL CUAL MAS ADELANTE PODRA FILTRAR LA
-    RESPUESTA Y ASI SABER QUE SE TRATA DE LA MISMA ACTIVITY QUE LO LANZO*/
-    private val editResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if (it.resultCode == RESULT_OK) {
-            val name = it.data?.getStringExtra(getString(R.string.key_name))
-            val email = it.data?.getStringExtra(getString(R.string.key_email))
-            val website = it.data?.getStringExtra(getString(R.string.key_website))
-            val phone = it.data?.getStringExtra(getString(R.string.key_phone))
-            lat = it.data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
-            long = it.data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
-            imageUri = Uri.parse(it.data?.getStringExtra(getString(R.string.key_img)))
-            updateUI(name, email, website, phone)
-        }
-
-    }
-
-
     //CON ESTA FUNCION LE DAMOS LA PROPIEDAD DE BUSQUEDA AL TEXTVIEW
     //ES DECIR HAGO CLICK EN EL NOMBRE Y AUTOMATICAMENTE BUSCAR ESO ESCRITO EN GOOGLE
     private fun setUpIntents() {
@@ -70,15 +69,13 @@ class MainActivity : AppCompatActivity() {
             }
             launchIntent(intent)
         }
+
         binding.tvEmail.setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                //PRIMERO LE INDICAMOS QUE SEA PARA ENVIO EMAILS
-                data = Uri.parse("mailto:") //CON ESTO YA SABE QUE ES UN CORREO
-
-                //CONFIG DE LOS ARGUMENTOS
+                data = Uri.parse("mailto:")
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(binding.tvEmail.text.toString()))
-                putExtra(Intent.EXTRA_SUBJECT, "Enviado desde Kotlin") //Asunto del correo
-                putExtra(Intent.EXTRA_TEXT, "Texto de prueba")//Mensaje que se envia
+                putExtra(Intent.EXTRA_SUBJECT, "From kotlin basic course")
+                putExtra(Intent.EXTRA_TEXT, "Hi! I'm Android developer.")
             }
             launchIntent(intent)
         }
@@ -89,7 +86,6 @@ class MainActivity : AppCompatActivity() {
             launchIntent(intent)
         }
 
-        //MARCA EL NUMERO PARA QUE SOLO LLAMES
         binding.tvPhone.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL).apply {
                 val phone = (it as TextView).text
@@ -100,15 +96,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.tvLocation.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("geo:0,0?q=$lat, $long(Puente Web)")
+                data = Uri.parse("geo:0,0?q=$lat,$long(Cursos Android ANT)")
                 `package` = "com.google.android.apps.maps"
             }
             launchIntent(intent)
         }
 
-        //CON ESTA INTENCION PODEMOS ACCEDER A LAS CONFIGURACIONES DEL MAP
         binding.tvSetting.setOnClickListener {
-            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             launchIntent(intent)
         }
     }
@@ -123,9 +118,9 @@ class MainActivity : AppCompatActivity() {
         //ESTO PREGUNTA SI HAY COMPATIBILIDAD CON API SUPERIOR DEL ANDROID 11
     }
 
-    private fun getUserData() {
+    private fun getUserData(){
         imageUri = Uri.parse(sharedPreferences.getString(getString(R.string.key_img), ""))
-        val name = sharedPreferences.getString(getString(R.string.key_name),null)
+        val name = sharedPreferences.getString(getString(R.string.key_name), null)
         val email = sharedPreferences.getString(getString(R.string.key_email), null)
         val website = sharedPreferences.getString(getString(R.string.key_website), null)
         val phone = sharedPreferences.getString(getString(R.string.key_phone), null)
@@ -153,30 +148,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_edit){
-            val intent =Intent(this, EditActivity::class.java)
-            //COMO PASAMOS DATOS LA ACTIVITY PRINCIPAL A LA ACTIVITY EDIT
-            intent.putExtra(getString(R.string.key_name), binding.tvName.text)
-            intent.putExtra(getString(R.string.key_email), binding.tvEmail.text.toString())
-            intent.putExtra(getString(R.string.key_website), binding.tvWebsite.text.toString())
-            intent.putExtra(getString(R.string.key_phone), binding.tvPhone.text)
-            intent.putExtra(getString(R.string.key_latitud), lat)
-            intent.putExtra(getString(R.string.key_longitud), long)
-            intent.putExtra(getString(R.string.key_img), imageUri.toString())
-            //TODOS ESTOS DATOS SE ESTAN ENVIANDO A EditActivity
+        when(item.itemId){
+            R.id.action_edit -> {
+                val intent = Intent(this, EditActivity::class.java)
+                intent.putExtra(getString(R.string.key_img), imageUri.toString())
+                intent.putExtra(getString(R.string.key_name), binding.tvName.text)
+                intent.putExtra(getString(R.string.key_email), binding.tvEmail.text.toString())
+                intent.putExtra(getString(R.string.key_website), binding.tvWebsite.text.toString())
+                intent.putExtra(getString(R.string.key_phone), binding.tvPhone.text)
+                intent.putExtra(getString(R.string.key_latitud), lat)
+                intent.putExtra(getString(R.string.key_longitud), long)
 
-            //startActivity(intent) //DE ESTA MANERA LLAMAMOS A EditActivity similar a llamar a otro formulario
-
-            editResult.launch(intent)// LANZAMIENTO Y ESPERA DE LA RESPUESTA
-
-            //editResult.launch(intent)
+                //startActivity(intent) <- solo lanzamiento
+                //startActivityForResult(intent, RC_EDIT) // <- lanzamiento y espera de respuesta
+                editResult.launch(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (resultCode == RESULT_OK) {
             if (requestCode == RC_EDIT) {
                 val name = data?.getStringExtra(getString(R.string.key_name))
@@ -186,33 +180,27 @@ class MainActivity : AppCompatActivity() {
                 lat = data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
                 long = data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
                 imageUri = Uri.parse(data?.getStringExtra("key_image"))
-                //updateUI(name!!, email!!, website!!, phone!!)
+                //updateUI(name, email, website, phone)
 
                 saveUserData(name, email, website, phone)
             }
         }
-    }
+    }*/
 
     //ASI PODEMOS ALMACENAR DATOS DE MANERA PERMANENTE
     //AHORA sharedPreferences CONTIENE LOS DATOS ALMACENADOS
     private fun saveUserData(name: String?, email: String?, website: String?, phone: String?) {
         sharedPreferences.edit {
+            putString(getString(R.string.key_img), imageUri.toString())
             putString(getString(R.string.key_name), name)
             putString(getString(R.string.key_email), email)
             putString(getString(R.string.key_website), website)
             putString(getString(R.string.key_phone), phone)
-            putString(getString(R.string.key_img), imageUri.toString())
             putString(getString(R.string.key_latitud), lat.toString())
             putString(getString(R.string.key_longitud), long.toString())
-            //USANDO apply PASAMOS A ALMACENAR DATOS DE MANERA PERMANENTE
             apply()
         }
         updateUI(name, email, website, phone)
     }
-
-    companion object { //CONSTANTE CREADA
-        private const val RC_EDIT = 21 //ACTUALMENTE NO ESTA SIENDO USADA
-    }
-
 
 }

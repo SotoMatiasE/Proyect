@@ -28,7 +28,6 @@
                 android:layout_height="@dimen/profile_image_size_large"
                 android:scaleType="centerCrop"
                 android:src="@drawable/logo_pw"/>
-
         </androidx.cardview.widget.CardView>
 
         <TextView

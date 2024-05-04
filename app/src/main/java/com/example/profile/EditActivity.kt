@@ -44,7 +44,7 @@ class EditActivity : AppCompatActivity() {
 
         with(binding) {
             //VALIDACION DE CAMPOS NULOS
-            intent.extras?.let { //SI ESTRAS LLEGA A SER NULL JAMAS SE EJECUTA OEL CODIGO Y VERIFICA UNA SOLA VEZ
+            intent.extras?.let { //SI EXTRAS LLEGA A SER NULL JAMAS SE EJECUTA OEL CODIGO Y VERIFICA UNA SOLA VEZ
                 etName.setText(it.getString(getString(R.string.key_name)))
                 etEmail.setText(it.getString(getString(R.string.key_email)))
                 etWebSite.setText(it.getString(getString(R.string.key_website)))
@@ -140,7 +140,7 @@ class EditActivity : AppCompatActivity() {
         finish()
     }
 
-    companion object{ //CONSTANTES
+    /*companion object{ //CONSTANTES
         private const val RC_GALERY = 22
-    }
+    }*/
 }

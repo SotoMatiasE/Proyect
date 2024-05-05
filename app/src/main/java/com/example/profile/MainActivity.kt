@@ -14,6 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import androidx.core.view.updateLayoutParams
 import androidx.preference.PreferenceManager
 import com.example.profile.databinding.ActivityMainBinding
 
@@ -62,14 +63,39 @@ class MainActivity : AppCompatActivity() {
     //onResume NOS SIRVE AHORA PARA PODER GENERAR CAMBIOS EN TIEMPO REAL EN ESTA CASO DESHABILITA O HABILITA CLCKS
     override fun onResume() {
         super.onResume()
+        refreshSettingsPreferences()
+    }
+
+    private fun refreshSettingsPreferences() {
         val isEnable = sharedPreferences.getBoolean(getString(R.string.preference_key_enable_clicks),true)
+        //HABILITA O DESHABILITA LOS EVENTOS DE CLICK
         with(binding){
-        tvName.isEnabled = isEnable
-        tvEmail.isEnabled = isEnable
-        tvWebsite.isEnabled = isEnable
-        tvPhone.isEnabled = isEnable
-        tvLocation.isEnabled = isEnable
-        tvSetting.isEnabled = isEnable
+            tvName.isEnabled = isEnable
+            tvEmail.isEnabled = isEnable
+            tvWebsite.isEnabled = isEnable
+            tvPhone.isEnabled = isEnable
+            tvLocation.isEnabled = isEnable
+            tvSetting.isEnabled = isEnable
+        }
+
+        //EXTRAER EL VALOR SELECCIONADO DEL LISTADO
+        //USANDO when, PREGUNTAMOS QUE SI COINCIDEN
+        val imgSize = sharedPreferences.getString(getString(R.string.preference_key_ui_img_size), "")
+        val sizeValue = when(imgSize){ //SIZE IMG
+            getString(R.string.preference_key_img_small) -> { //RECORDAR, LA FLECHA INDICA QUE QUIERO QUE HAGA LO QUE INDICAN LAS LLAVES
+                resources.getDimensionPixelSize(R.dimen.profile_image_size_small)
+            }
+            getString(R.string.preference_key_img_medium) -> {
+                resources.getDimensionPixelSize(R.dimen.profile_image_size_medium)
+            }
+            else -> { //si no es peque ni mediano es grande...
+                resources.getDimensionPixelSize(R.dimen.profile_image_size_large)
+            }
+        }
+        //CONFIGURACION DEL TAMANIO DE LA IMAGEN
+        binding.imgProfile.updateLayoutParams {
+            width = sizeValue
+            height = sizeValue
         }
     }
 

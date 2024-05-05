@@ -2,9 +2,11 @@ package com.example.profile
 
 import android.os.Bundle
 import androidx.core.content.edit
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 
 
 //funciona como actividad donde se vincula una vista NO PUEDE EXISTIR POR SI SOLO SI NO QUE TIENE
@@ -32,13 +34,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
+        //REFERENCIA A ELEMENTOS GRAFICOS
+        val switchPreferenceCompat = findPreference<SwitchPreferenceCompat>(getString(R.string.preference_key_enable_clicks))
+        val listPreferenceCompat = findPreference<ListPreference>(getString(R.string.preference_key_ui_img_size))
+
+
         /*ELIMINA POR COMPLETO TODAS LAS COFIGURACIONES Y DATOS EDITADOS */
         val restoreAllPreference =
             findPreference<Preference>(getString(R.string.preference_key_restore_data))
         restoreAllPreference?.setOnPreferenceClickListener {
             val sharePreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            sharePreferences.edit().clear()
-                .apply() /*ESTE METODO .edit().clear().apply() LIMPIA POR COMPLETO LAS PREFERENCIASDATOS Y CONFIGURACIONES*/
+            sharePreferences.edit().clear().apply() /*ESTE METODO .edit().clear().apply() LIMPIA POR COMPLETO LAS PREFERENCIASDATOS Y CONFIGURACIONES*/
+
+            //RESTAURA GRAFICAMENTE
+            switchPreferenceCompat?.isChecked = true
+            listPreferenceCompat?.value = getString(R.string.preference_key_img_large)
             true
         }
     }

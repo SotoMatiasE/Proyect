@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity() {
             width = sizeValue
             height = sizeValue
         }
+        getUserData() //refrescar valores dependiendo de las preferencias
     }
 
 

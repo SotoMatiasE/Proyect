@@ -51,4 +51,6 @@
     <string name="preference_ui_title">Intefaz</string>
     <string name="preference_ui_img_size">Tamaño de la imagen</string>
     <string name="preference_key_ui_img_size">pref_ui_img_size</string>
+    <string name="preference_restore_settings">Restaurar configuraciones</string>
+    <string name="preference_key_restore_settings">pref_restore_settings</string>
 </resources>

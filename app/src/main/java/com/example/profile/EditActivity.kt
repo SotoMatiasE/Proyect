@@ -140,7 +140,4 @@ class EditActivity : AppCompatActivity() {
         finish()
     }
 
-    /*companion object{ //CONSTANTES
-        private const val RC_GALERY = 22
-    }*/
 }

@@ -184,25 +184,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == RC_EDIT) {
-                val name = data?.getStringExtra(getString(R.string.key_name))
-                val email = data?.getStringExtra(getString(R.string.key_email))
-                val website = data?.getStringExtra(getString(R.string.key_website))
-                val phone = data?.getStringExtra(getString(R.string.key_phone))
-                lat = data?.getDoubleExtra(getString(R.string.key_latitud), 0.0) ?: 0.0
-                long = data?.getDoubleExtra(getString(R.string.key_longitud), 0.0) ?: 0.0
-                imageUri = Uri.parse(data?.getStringExtra("key_image"))
-                //updateUI(name, email, website, phone)
-
-                saveUserData(name, email, website, phone)
-            }
-        }
-    }*/
-
     //ASI PODEMOS ALMACENAR DATOS DE MANERA PERMANENTE
     //AHORA sharedPreferences CONTIENE LOS DATOS ALMACENADOS
     private fun saveUserData(name: String?, email: String?, website: String?, phone: String?) {

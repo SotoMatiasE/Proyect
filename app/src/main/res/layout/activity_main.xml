@@ -10,10 +10,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/common_padding_default"
-        android:paddingBottom="@dimen/common_padding_default"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/common_padding_default"
+        android:paddingBottom="@dimen/common_padding_default">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -27,87 +28,96 @@
                 android:layout_width="@dimen/profile_image_size_large"
                 android:layout_height="@dimen/profile_image_size_large"
                 android:scaleType="centerCrop"
-                android:src="@drawable/logo_pw"/>
+
+                android:src="@drawable/logo_pw" />
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_padding_default"
-            android:text="@string/hint_name"/>
+            android:text="@string/hint_name" />
+
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/profile_text_size_large"
             android:textColor="@color/black"
-            tools:text="Stock PW"/>
+            android:textSize="@dimen/profile_text_size_large"
+            tools:text="Stock PW" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_padding_default"
-            android:text="@string/hint_email"/>
+            android:text="@string/hint_email" />
+
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/profile_text_size_middle"
-            android:textColor="@color/black"
-            android:textStyle="italic"
             android:autoLink="email"
-            android:textColorLink="@color/black"
             android:linksClickable="false"
-            tools:text="tarea_quemedio@Macu"/>
+            android:textColor="@color/black"
+            android:textColorLink="@color/black"
+            android:textSize="@dimen/profile_text_size_middle"
+            android:textStyle="italic"
+            tools:text="tarea_quemedio@Macu" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_padding_default"
-            android:text="@string/hint_website"/>
+            android:text="@string/hint_website" />
+
         <TextView
             android:id="@+id/tvWebsite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:autoLink="web"
-            android:textColorLink="@color/blue_700"
             android:linksClickable="false"
-            tools:text="https://puenteweb.com/pw/"/>
+            android:textColor="@color/black"
+            android:textColorLink="@color/blue_700"
+            tools:text="https://puenteweb.com/pw/" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_padding_default"
-            android:text="@string/hint_phone"/>
+            android:text="@string/hint_phone" />
+
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="@dimen/profile_text_size_middle"
-            tools:text="299456789"/>
+            tools:text="299456789" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_padding_default"
-            android:text="@string/hint_location"/>
+            android:text="@string/hint_location" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:text="@string/main_show_map"
-            android:textStyle="bold"
+            android:textColor="@color/black"
             android:textSize="@dimen/profile_text_size_middle"
+            android:textStyle="bold"
             app:drawableEndCompat="@drawable/ic_map"
-            app:drawableTint="@color/black"/>
+            app:drawableTint="@color/black" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_padding_large"
-            android:text="@string/main_setting_location"
-            android:drawableStart="@drawable/ic_settings"/>
+            android:drawableStart="@drawable/ic_settings"
+            android:text="@string/main_setting_location" />
 
     </LinearLayout>
-
 </ScrollView>

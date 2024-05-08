@@ -151,9 +151,12 @@ class MainActivity : AppCompatActivity() {
             tvEmail.text = email ?: "pwkotlinsoft@gmail.com"
             tvWebsite.text = website ?: "https://puenteweb.com/pw/"
             tvPhone.text = phone ?: "+54 231321321"
-        }
-        //lat = -38.940576
-        //long = -68.068939
+        }/*
+        if (resources.getBoolean(R.bool.isTablet)){
+            binding.tvName.text = "Es un Tablet"
+        }else{
+            binding.tvName.text = "Es un Smartphone"
+        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
